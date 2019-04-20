@@ -15,8 +15,7 @@
   along with The Colony Network. If not, see <http://www.gnu.org/licenses/>.
 */
 
-pragma solidity ^0.4.24;
-pragma experimental "v0.5.0";
+pragma solidity ^0.5.7;
 
 
 contract BudgetBox {
@@ -42,11 +41,11 @@ contract BudgetBox {
     return numLoadedVotes + voteArray.length;
   }
 
-  function getBudget() public view returns (uint256[K]) {
+  function getBudget() public view returns (uint256[K] memory) {
     return budget;
   }
 
-  function createBBox() public view returns (uint256[K][K]) {
+  function createBBox() public view returns (uint256[K][K] memory) {
     uint256[K][K] memory bbox = createBBoxFromVotes();
     uint i;
     uint j;
@@ -62,7 +61,7 @@ contract BudgetBox {
     return bbox;
   }
 
-  function addDiagonal(uint256[K][K] bbox) public pure returns(uint256[K][K]) {
+  function addDiagonal(uint256[K][K] memory bbox) public pure returns(uint256[K][K] memory) {
     uint i;
     uint j;
 
@@ -74,7 +73,7 @@ contract BudgetBox {
     return bbox;
   }
 
-  function normalize(uint256[K][K] bbox) public pure returns(uint256[K][K]) {
+  function normalize(uint256[K][K] memory bbox) public pure returns(uint256[K][K] memory) {
     uint i;
     uint j;
     uint s;
@@ -91,7 +90,7 @@ contract BudgetBox {
     return bbox;
   }
 
-  function powerMethod(uint256[K][K] bbox) public pure returns (uint256[K]) {
+  function powerMethod(uint256[K][K] memory bbox) public pure returns (uint256[K] memory) {
     uint256[K] memory v0;
     uint256[K] memory vn;
 
@@ -133,7 +132,7 @@ contract BudgetBox {
   //////////
   // Internal functions
 
-  function createBBoxFromVotes() public view returns (uint256[K][K]) {
+  function createBBoxFromVotes() public view returns (uint256[K][K] memory) {
     uint256[K][K] memory bbox;
     uint a;
     uint b;
@@ -183,7 +182,7 @@ contract BudgetBox {
     return ((b * (b - 1)) / 2) + a;
   }
 
-  function difference(uint256[K] v0, uint256[K] vn) internal pure returns (uint) {
+  function difference(uint256[K] memory v0, uint256[K] memory vn) internal pure returns (uint) {
     uint diff;
     for (uint k; k < K; k++) {
       diff += (v0[k] - vn[k]) ** 2;
